@@ -62,6 +62,11 @@ contract YourContract {
 		}
 		return "REVIEW NOT FOUND";
 	}
+
+	string public purpose = "Hello world!";
+	function setPurpose(string memory _purpose) public {
+		purpose = _purpose;
+	}
 	constructor() {
 		// what should we do on deploy?
 	}

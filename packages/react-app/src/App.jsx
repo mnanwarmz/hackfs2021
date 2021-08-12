@@ -21,7 +21,7 @@ import {
   useUserSigner,
 } from "./hooks";
 // import Hints from "./Hints";
-import { ExampleUI, Hints, Subgraph, OwnerUI } from "./views";
+import { ExampleUI, Hints, Subgraph, OwnerUI, Review } from "./views";
 
 const { ethers } = require("ethers");
 /*
@@ -401,6 +401,16 @@ function App(props) {
               Hints
             </Link>
           </Menu.Item>
+          <Menu.Item key="/review">
+            <Link
+              onClick={() => {
+                setRoute("/review");
+              }}
+              to="/review"
+            >
+              User Reviews
+            </Link>
+          </Menu.Item>
           <Menu.Item key="/ownerui">
             <Link
               onClick={() => {
@@ -419,16 +429,6 @@ function App(props) {
               to="/exampleui"
             >
               ExampleUI
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/mainnetdai">
-            <Link
-              onClick={() => {
-                setRoute("/mainnetdai");
-              }}
-              to="/mainnetdai"
-            >
-              Mainnet DAI
             </Link>
           </Menu.Item>
           <Menu.Item key="/subgraph">
@@ -467,6 +467,21 @@ function App(props) {
               price={price}
             />
           </Route>
+          <Route path="/review">
+            <Review
+              address={address}
+              userSigner={userSigner}
+              mainnetProvider={mainnetProvider}
+              localProvider={localProvider}
+              yourLocalBalance={yourLocalBalance}
+              price={price}
+              tx={tx}
+              writeContracts={writeContracts}
+              readContracts={readContracts}
+              purpose={purpose}
+              setPurposeEvents={setPurposeEvents}
+            />
+          </Route>
           <Route path="/ownerui">
             <OwnerUI
               address={address}
@@ -496,26 +511,6 @@ function App(props) {
               purpose={purpose}
               setPurposeEvents={setPurposeEvents}
             />
-          </Route>
-          <Route path="/mainnetdai">
-            <Contract
-              name="DAI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.DAI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            {/*
-            <Contract
-              name="UNI"
-              customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
-              signer={userSigner}
-              provider={mainnetProvider}
-              address={address}
-              blockExplorer="https://etherscan.io/"
-            />
-            */}
           </Route>
           <Route path="/subgraph">
             <Subgraph
