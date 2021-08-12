@@ -7,7 +7,7 @@ import "hardhat/console.sol";
 contract YourContract {
 
 	// Owner functions
-	address public owner = 0x2E5b16A8e459311884C3f75Ac55012b81bC7d6Bc;
+	address public owner = 0xb31DCe4e71C8e8d6bC48bB773e342a07c2CBE4f3;
 
 	modifier onlyOwner() {
 		require(msg.sender == owner, "NOT THE OWNER");

@@ -418,7 +418,7 @@ function App(props) {
               }}
               to="/ownerui"
             >
-              Owner Dashboard
+              Token Dashboard
             </Link>
           </Menu.Item>
           <Menu.Item key="/exampleui">

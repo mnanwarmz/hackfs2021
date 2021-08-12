@@ -20,15 +20,15 @@ export default function Review({
 	const [productID, setproductID] = useState('');
 	const [review, setreview] = useState('');
 	
-	// used for viewing tokens
+	// used for viewing reviews
 	const [productID2, setproductID2] = useState('');
-	const [tokenNum, settokenNum] = useState('');
+	const [reviewIndex, setreviewIndex] = useState('');
+	const [reviewHash, setreviewHash] = useState('');
 
 	return (
 		<div>
 			<div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64, marginBottom: 64 }}>
-				<h2> Enter Product Reviews </h2>
-				<h3> Enter Product ID and review </h3>
+				<h2> Enter Product Reviews 📝 </h2>
 				<h4>(Only users with product review tokens 🟡 are able to enter reviews)</h4>
 				<div style={{ margin: 8 }}>
 					<Input 
@@ -53,8 +53,8 @@ export default function Review({
 					</Button>
 				</div>
 				<Divider />
-				<h2>🟡 View number of tokens 🟡</h2>
-				<h3> { tokenNum } token(s) for product { productID2 } </h3>
+				<h2> View Reviews 📝 </h2>
+				<h3> { reviewHash } </h3>
 				<div style={{ margin: 8 }}>
 					<Input
 						placeholder="Enter Product ID"
@@ -62,12 +62,18 @@ export default function Review({
 							setproductID2(e.target.value);
 						}}
 					/>
+					<Input
+						placeholder="Enter Review Index"
+						onChange={e => {
+							setreviewIndex(e.target.value);
+						}}
+					/>
 					<Button
 						style={{ marginTop: 8 }}
 						onClick={async () => {
-							writeContracts.YourContract.displayTokens(address, productID2)
+							writeContracts.YourContract.displayReview(address, productID2, reviewIndex)
 							.then(result => {
-								settokenNum(result.toNumber());
+								setreviewHash(result);
 							});
 						}}
 					>
