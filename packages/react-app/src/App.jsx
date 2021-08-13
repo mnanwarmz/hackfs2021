@@ -6,7 +6,6 @@ import "antd/dist/antd.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
-import "./App.css";
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor, storeJson } from "./helpers";
@@ -20,7 +19,7 @@ import {
   useOnBlock,
   useUserSigner,
 } from "./hooks";
-import { ExampleUI, OwnerUI, Review } from "./views";
+import { Products, OwnerUI, Review } from "./views";
 
 const { ethers } = require("ethers");
 /*
@@ -410,14 +409,14 @@ function App(props) {
               Token Dashboard
             </Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
+          <Menu.Item key="/products">
             <Link
               onClick={() => {
-                setRoute("/exampleui");
+                setRoute("/products");
               }}
-              to="/exampleui"
+              to="/products"
             >
-              ExampleUI
+              Products
             </Link>
           </Menu.Item>
         </Menu>
@@ -469,8 +468,8 @@ function App(props) {
               setPurposeEvents={setPurposeEvents}
             />
           </Route>
-          <Route path="/exampleui">
-            <ExampleUI
+          <Route path="/products">
+            <Products
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}

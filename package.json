@@ -10,19 +10,20 @@
   ],
   "private": true,
   "scripts": {
-    "react-app:build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288",
+    "react-app:build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288 & craco build",
     "react-app:eject": "yarn workspace @scaffold-eth/react-app eject",
-    "react-app:start": "yarn workspace @scaffold-eth/react-app start",
-    "react-app:test": "yarn workspace @scaffold-eth/react-app test",
-    "build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288",
+    "react-app:start": "yarn workspace @scaffold-eth/react-app start & craco start",
+    "react-app:test": "yarn workspace @scaffold-eth/react-app test & craco test",
+    "build": "yarn workspace @scaffold-eth/react-app build --max-old-space-size=12288 & craco build",
+	"eject": "yarn workspace @scaffold-eth/react-app react-scripts eject",
     "chain": "yarn workspace @scaffold-eth/hardhat chain",
     "fork": "yarn workspace @scaffold-eth/hardhat fork",
     "node": "yarn workspace @scaffold-eth/hardhat chain",
-    "test": "yarn workspace @scaffold-eth/hardhat test",
-    "start": "yarn workspace @scaffold-eth/react-app start",
+    "test": "yarn workspace @scaffold-eth/hardhat test & craco test",
+    "start": "yarn workspace @scaffold-eth/react-app start & craco start",
     "compile": "yarn workspace @scaffold-eth/hardhat compile",
     "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
-    "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify", 
+    "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify",
     "watch": "yarn workspace @scaffold-eth/hardhat watch",
     "accounts": "yarn workspace @scaffold-eth/hardhat accounts",
     "balance": "yarn workspace @scaffold-eth/hardhat balance",
@@ -50,7 +51,8 @@
     "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local",
     "deploy-and-graph": "yarn deploy && yarn graph-ship-local",
     "theme": "yarn workspace @scaffold-eth/react-app theme",
-    "watch-theme": "yarn workspace @scaffold-eth/react-app watch"
+    "watch-theme": "yarn workspace @scaffold-eth/react-app watch",
+	"build:style": "yarn workspace @scaffold-eth/react-app tailwind build src/styles/index.css -o packages/react-app/src/styles/tailwind.css"
   },
   "workspaces": {
     "packages": [
