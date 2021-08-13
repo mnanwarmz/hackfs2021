@@ -14,7 +14,7 @@ contract YourContract {
 		_;
 	}
 
-	// Defining Structs for Token
+	// Defining Struct for Token
 	struct ProductToken {
 		bool tokenExist;
 		uint tokenAmount;
@@ -27,13 +27,35 @@ contract YourContract {
 	// Mapping from productId to userAddress and IPFS hash
 	mapping (uint => mapping (address => string[])) user_reviews;
 
+	// User exist mapping
+	mapping (address => bool) userExist;
+	// List of users
+	address[] public users;
+
+	// Product exist mapping
+	mapping (uint => bool) productExist;
+	// List of products
+	uint[] public products;
+
 	// Display user tokens
 	function displayTokens(address _userAdd, uint _productId) public view returns (uint) {
 		return (user_tokens[_userAdd][_productId].tokenAmount);
 	}
 
+	function updateLists(address _userAdd, uint _productId) private {
+		if (userExist[_userAdd] == false) {
+			users.push(_userAdd);
+			userExist[_userAdd] = true;
+		}
+		if (productExist[_productId] == false) {
+			products.push(_productId);
+			productExist[_productId] = true;
+		}
+	}
+
 	// Owner functions
 	function giveToken(address _userAdd, uint _productId) public onlyOwner {
+		updateLists(_userAdd, _productId);
 		if (user_tokens[_userAdd][_productId].tokenAmount == 0) {
 			user_tokens[_userAdd][_productId].tokenAmount = 1;
 		}
@@ -49,8 +71,8 @@ contract YourContract {
 	}
 
 	// Verifies if user has tokens and subsequently stores reviewHash and deducts userToken amount
-	function writeReview(uint _productId, string memory reviewHash) public hasToken(_productId) {
-		user_reviews[_productId][msg.sender].push(reviewHash);
+	function writeReview(uint _productId, string memory _reviewHash) public hasToken(_productId) {
+		user_reviews[_productId][msg.sender].push(_reviewHash);
 		user_tokens[msg.sender][_productId].tokenAmount -= 1;
 	}
 
@@ -63,10 +85,74 @@ contract YourContract {
 		return "REVIEW NOT FOUND";
 	}
 
-	string public purpose = "Hello world!";
-	function setPurpose(string memory _purpose) public {
-		purpose = _purpose;
+	// Check existance of product
+	modifier productInStore(uint _productId) {
+		require(productExist[_productId] == true, "PRODUCT DOES NOT EXIST");
+		_;
 	}
+
+	function noOfReviewsProduct(uint _productId) private view returns (uint) {
+		uint totalReviews = 0;
+		for (uint i = 0; i < users.length; i++) {
+			address userAdd = users[i];
+			string[] memory userReviews = user_reviews[_productId][userAdd];
+			for (uint j = 0; j < userReviews.length; j++) {
+				totalReviews += 1;
+			}
+		}
+		return (totalReviews);
+	}
+
+	// loops through mapping with users length and number of reviews
+	function displayMultipleReviewsProduct(uint _productId) public view productInStore(_productId) returns (string[] memory) {
+		uint reviewNum = noOfReviewsProduct(_productId);
+		string[] memory reviewHashes = new string[](reviewNum);
+		uint index = 0;
+		for (uint i = 0; i < users.length; i++) {
+			address userAdd = users[i];
+			string[] memory userReviews = user_reviews[_productId][userAdd];
+			for (uint j = 0; j < userReviews.length; j++) {
+				reviewHashes[index] = user_reviews[_productId][userAdd][j];
+				index += 1;
+			}
+		}
+		return (reviewHashes);
+	}
+
+	// Check existance of product
+	modifier userInStore(address _userId) {
+		require(userExist[_userId] == true, "USER DOES NOT EXIST");
+		_;
+	}
+
+	function noOfReviewsUser(address _userId) private view returns (uint) {
+		uint totalReviews = 0;
+		for (uint i = 0; i < products.length; i++) {
+			uint productId = products[i];
+			string[] memory userReviews = user_reviews[productId][_userId];
+			for (uint j = 0; j < userReviews.length; j++) {
+				totalReviews += 1;
+			}
+		}
+		return (totalReviews);
+	}
+
+	// loops through mapping with users length and number of reviews
+	function displayMultipleReviewsUser(address _userId) public view userInStore(_userId) returns (string[] memory) {
+		uint reviewNum = noOfReviewsUser(_userId);
+		string[] memory reviewHashes = new string[](reviewNum);
+		uint index = 0;
+		for (uint i = 0; i < products.length; i++) {
+			uint productId = products[i];
+			string[] memory userReviews = user_reviews[productId][_userId];
+			for (uint j = 0; j < userReviews.length; j++) {
+				reviewHashes[index] = user_reviews[productId][_userId][j];
+				index += 1;
+			}
+		}
+		return (reviewHashes);
+	}
+
 	constructor() {
 		// what should we do on deploy?
 	}
