@@ -16,6 +16,7 @@ export default function Review({
 	readContracts,
 	writeContracts,
 	storeJson,
+	getJson,
 }) {
 	// form constants to write reviews
 	const [productID, setproductID] = useState('');
@@ -84,6 +85,23 @@ export default function Review({
 						}}
 					>
 						Enter
+					</Button>
+				</div>
+				<div style={{ margin: 8 }}>
+					<Button
+						style={{ marginTop: 8 }}
+						onClick={async () => {
+							let productReviewHashes;
+							await writeContracts.YourContract.displayMultipleReviewsProduct(200)
+								.then(result => {
+									productReviewHashes = result;
+								});
+							await productReviewHashes.forEach(hash => {
+								console.log(getJson(hash));
+							});
+						}}
+					>
+						Test
 					</Button>
 				</div>
 			</div>

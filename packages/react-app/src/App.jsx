@@ -8,7 +8,7 @@ import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
-import { Transactor, storeJson } from "./helpers";
+import { Transactor, storeJson, getJson } from "./helpers";
 import {
   useBalance,
   useContractLoader,
@@ -451,6 +451,7 @@ function App(props) {
               purpose={purpose}
               setPurposeEvents={setPurposeEvents}
               storeJson={storeJson}
+              getJson={getJson}
             />
           </Route>
           <Route path="/ownerui">
