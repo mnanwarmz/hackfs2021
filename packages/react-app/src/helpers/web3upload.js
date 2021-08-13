@@ -1,6 +1,4 @@
-import { Web3Storage } from 'web3.storage';
-import { File } from 'web3.storage';
-// import { File } from 'web3.storage/dist/bundle.esm.min.js';
+import { Web3Storage, File } from 'web3.storage/dist/bundle.esm.min.js';
 
 function getAccessToken() {
   // If you're just testing, you can paste in a token

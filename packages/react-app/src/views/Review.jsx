@@ -15,6 +15,7 @@ export default function Review({
 	tx,
 	readContracts,
 	writeContracts,
+	storeJson,
 }) {
 	// form constants to write reviews
 	const [productID, setproductID] = useState('');
@@ -46,7 +47,12 @@ export default function Review({
 					<Button
 						style={{ marginTop: 8 }}
 						onClick={async () => {
-							const result = tx(writeContracts.YourContract.writeReview(productID, review));
+							let reviewJson = {
+								productID: productID,
+								review: review,
+							}
+							const cid = storeJson(reviewJson, "review.json");
+							const result = tx(writeContracts.YourContract.writeReview(productID, cid));
 						}}
 					>
 						Enter Review
