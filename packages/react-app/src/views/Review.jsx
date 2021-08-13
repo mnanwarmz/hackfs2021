@@ -20,7 +20,7 @@ export default function Review({
 	// form constants to write reviews
 	const [productID, setproductID] = useState('');
 	const [review, setreview] = useState('');
-	
+
 	// used for viewing reviews
 	const [productID2, setproductID2] = useState('');
 	const [reviewIndex, setreviewIndex] = useState('');
@@ -32,7 +32,7 @@ export default function Review({
 				<h2> Enter Product Reviews 📝 </h2>
 				<h4>(Only users with product review tokens 🟡 are able to enter reviews)</h4>
 				<div style={{ margin: 8 }}>
-					<Input 
+					<Input
 						placeholder="Enter Product ID"
 						onChange={e => {
 							setproductID(e.target.value);
