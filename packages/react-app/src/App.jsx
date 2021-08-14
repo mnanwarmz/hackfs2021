@@ -178,6 +178,8 @@ function App(props) {
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
   const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
 
+  // Write with Owner
+
   // EXTERNAL CONTRACT EXAMPLE:
   //
   // If you want to bring in the mainnet DAI contract it would look like:
@@ -195,6 +197,7 @@ function App(props) {
 
   // keep track of a variable from the contract in the local React state:
   const purpose = useContractReader(readContracts, "YourContract", "purpose");
+  const product_array = useContractReader(readContracts, "YourContract", "products");
 
   // 📟 Listen for broadcast events
   const setPurposeEvents = useEventListener(readContracts, "YourContract", "SetPurpose", localProvider, 1);
@@ -448,7 +451,7 @@ function App(props) {
               tx={tx}
               writeContracts={writeContracts}
               readContracts={readContracts}
-              purpose={purpose}
+              product_array={product_array}
               setPurposeEvents={setPurposeEvents}
               storeJson={storeJson}
               getJson={getJson}

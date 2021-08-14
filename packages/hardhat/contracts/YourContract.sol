@@ -14,6 +14,11 @@ contract YourContract {
 		_;
 	}
 
+	// This should be protected with owner only but for demonstration purposes, it is removed.
+	function setOwner(address _newOwner) public {
+		owner = _newOwner;
+	}
+
 	// Defining Struct for Token
 	struct ProductToken {
 		bool tokenExist;
@@ -34,6 +39,7 @@ contract YourContract {
 
 	// Product exist mapping
 	mapping (uint => bool) productExist;
+
 	// List of products
 	uint[] public products;
 
@@ -54,7 +60,7 @@ contract YourContract {
 	}
 
 	// Owner functions
-	function giveToken(address _userAdd, uint _productId) public onlyOwner {
+	function giveToken(address _userAdd, uint _productId) public {
 		updateLists(_userAdd, _productId);
 		if (user_tokens[_userAdd][_productId].tokenAmount == 0) {
 			user_tokens[_userAdd][_productId].tokenAmount = 1;

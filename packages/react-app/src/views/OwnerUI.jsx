@@ -1,8 +1,10 @@
 import { SyncOutlined } from "@ant-design/icons";
 import { utils } from "ethers";
-import { Button, Card, DatePicker, Divider, Input, List, Progress, Slider, Spin, Switch } from "antd";
+import { Button, Card, DatePicker, Divider, Input, List, Progress, Slider, Spin, Switch, Select } from "antd";
 import React, { useState } from "react";
 import { Address, Balance } from "../components";
+
+const { Option } = Select;
 
 export default function OwnerUI({
 	purpose,
@@ -27,42 +29,20 @@ export default function OwnerUI({
 	return (
 		<div>
 			<div style={{ border: "1px solid #cccccc", padding: 16, width: 400, margin: "auto", marginTop: 64, marginBottom: 64 }}>
-				<h2>🟡 Give Tokens 🟡</h2>
-				<h3>Please enter user address and product ID</h3>
-				<h4>(Only owners are able to distribute tokens to users)</h4>
-				<div style={{ margin: 8 }}>
-					<Input 
-						placeholder="Enter user Address"
-						onChange={e => {
-							setuserAdd(e.target.value);
-						}}
-					/>
-					<Input
-						placeholder="Enter Product ID"
-						onChange={e => {
-							setproductID(e.target.value);
-						}}
-					/>
-					<Button
-						style={{ marginTop: 8 }}
-						onClick={async () => {
-							const result = tx(writeContracts.YourContract.giveToken(userAdd, productID));
-						}}
-					>
-						Give Token
-					</Button>
-				</div>
-				<Divider />
-
 				<h2>🟡 View number of tokens 🟡</h2>
 				<h3> { tokenNum } token(s) for product { productID2 } </h3>
 				<div style={{ margin: 8 }}>
-					<Input
+					<Select 
 						placeholder="Enter Product ID"
-						onChange={e => {
-							setproductID2(e.target.value);
+						onSelect={(value) => {
+							setproductID2(value);
 						}}
-					/>
+					>
+						<Option value="1">Earthen Bottle</Option>
+						<Option value="2">Nomad Tumbler</Option>
+						<Option value="3">Focus Paper Refill</Option>
+						<Option value="4">Machined Mechanical Pencil</Option>
+					</Select>
 					<Button
 						style={{ marginTop: 8 }}
 						onClick={async () => {

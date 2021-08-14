@@ -17,6 +17,7 @@ export default function Review({
 	writeContracts,
 	storeJson,
 	getJson,
+	product_array,
 }) {
 	// form constants to write reviews
 	const [productID, setproductID] = useState('');
