@@ -124,6 +124,7 @@ function App(props) {
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
+  const [productHash, setProductHash] = useState(null);
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
@@ -483,6 +484,10 @@ function App(props) {
               setPurposeEvents={setPurposeEvents}
             />
           </Route>
+          {/* <Route path={"/products/" + productHash}>
+            <Product
+            />
+          </Route> */}
         </Switch>
       </BrowserRouter>
 
